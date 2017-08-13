@@ -4,7 +4,7 @@ from apps.frontend.views import DisplayInfographic
 
 urlpatterns = [
     url(
-        r'^$',
+        r'^(?P<pk>\d+)$',
         DisplayInfographic.as_view(),
         name='display_infographic'
     ),

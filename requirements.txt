@@ -1,0 +1,4 @@
+django==1.11.4
+djangorestframework==3.6.3
+django-model-utils==3.0.0
+django-pipeline==1.6.13

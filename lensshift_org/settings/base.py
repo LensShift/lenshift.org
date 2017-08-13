@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_bridge',
+    'pipeline',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,6 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -132,3 +136,52 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 10
 }
+
+#  Pipeline
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+PIPELINE = {
+    'STYLESHEETS': {
+        'libraries': {
+            'source_filenames': (
+                'bower_components/bootstrap/dist/css/bootstrap.css',
+            ),
+            'output_filename': 'css/libraries.css'
+        },
+        'main': {
+            'source_filenames': (
+                'stylesheets/main.css',
+            ),
+            'output_filename': 'css/main.css'
+        }
+    },
+    'JAVASCRIPT': {
+        'libraries': {
+            'source_filenames': (
+                'bower_components/jquery/dist/jquery.js',
+                'bower_components/bootstrap/dist/js/bootstrap.js',
+                'bower_components/vue/dist/vue.js',
+                'bower_components/vuex/dist/vuex.js',
+            ),
+            'output_filename': 'js/libraries.js'
+        },
+        'main': {
+            'source_filenames': (
+                'coffee/base.js',
+                'coffee/section.js',
+                'coffee/infographic.js',
+                'coffee/main.js',
+            ),
+            'output_filename': 'main.js'
+        }
+    }
+}
+
+BACKEND_URL = 'http://127.0.0.1:8000'
