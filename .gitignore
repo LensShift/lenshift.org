@@ -5,6 +5,10 @@
 *.db
 *.log
 *.mo
+*.js
+*.js.map
+*.css
+*.css.map
 /media/
 CACHE
 /.idea
@@ -17,3 +21,5 @@ CACHE
 htmlcov/
 .coverage
 bower_components
+.sass-cache
+/static
